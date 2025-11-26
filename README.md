@@ -1,126 +1,127 @@
-# Smart-Parking-Embedded-System
-🚗 מערכת חניה חכמה – פרויקט מערכות משובצות
+Smart-Parking-Embedded-System
 
-מערכת משובצת מבוססת ESP32 לניהול חניון חכם, הכוללת זיהוי רכבים, ניטור מקומות חניה, חיישני גז, בקרת כניסה, שרת אינטרנט, נורות חיווי, מצלמה, נגן MP3 ועוד.
+🚗 Smart Parking System – Embedded Systems Project
 
-📘 תיאור הפרויקט
+An ESP32-based embedded system for managing a smart parking lot, including vehicle detection, parking-slot monitoring, gas sensing, barrier control, web server, indicator LEDs, camera streaming, MP3 alerts, and more.
 
-הפרויקט מדמה מערכת חניה חכמה המזהה כניסת רכבים באמצעות חיישן אולטרה־סוני, מנהלת ספירת מקומות פנויים, מזהה עשן וגזים מסוכנים, מאפשר בקרת מחסום באמצעות סרוו, מפעיל נורות חיווי, מדווח התראות ומציג את מצב החניון בזמן אמת באמצעות שרת HTTP ואפליקציית וידאו ממצלמת ESP32-CAM.
+📘 Project Description
 
-הקוד כתוב בצורה מודולרית ומחולק לקבצי ‎.ino לפי תתי־מערכות.
+This project implements a complete smart-parking solution that detects incoming vehicles using an ultrasonic sensor, manages parking-slot availability, identifies smoke/gas hazards, controls a servo-barrier gate, activates visual indicators, streams live video from an ESP32-CAM, plays audio alerts, and displays real-time parking status through an HTTP dashboard.
 
-🎯 מטרות המערכת
+The code is modular and divided into multiple .ino files according to system components.
 
-זיהוי כניסת רכבים לחניון
+🎯 System Objectives
 
-בקרת מחסום כניסה באמצעות סרוו
+Detect vehicle entry automatically
 
-ניטור מקומות חניה פנויים ותפוסים
+Control entrance barrier using a servo motor
 
-זיהוי עשן/גז באמצעות MQ-2
+Monitor available and occupied parking spots
 
-תיעוד וצילום בזמן אמת באמצעות ESP32-CAM
+Detect smoke/gas using an MQ-2 sensor
 
-מערכת התראות באמצעות נורות חיווי + פס לד
+Capture and stream live video using ESP32-CAM
 
-ניגון הודעות קוליות דרך Serial MP3 Player
+Trigger alerts with LEDs and LED strip
 
-הצגת לוח בקרה (Dashboard) בשרת HTTP
+Play audio messages using a Serial MP3 Player
 
-עבודה בזמן אמת על בסיס ESP32
+Host a real-time web dashboard via an HTTP server
 
-🗂 מבנה הפרויקט (קבצי קוד)
-קובץ	תיאור
-01_main.ino	אתחול המערכת והלולאה הראשית
-03_entry.ino	זיהוי כניסת רכב, הפעלת סרוו וניהול מונה כניסה
-04_gas.ino	קריאת חיישן גז/עשן MQ-2 והפעלת התראות
-06_parking.ino	חישוב מקומות פנויים וניהול מצב החניון
-07_http_server.ino	שרת HTTP להצגת נתוני Live
-05_utils.ino	פונקציות עזר כלליות
-smart_parking.ino	קובץ איחוד/מנהל תלות (אם קיים)
-🧰 חומרה בשימוש
+Run fully on an embedded ESP32 controller
 
-להלן כל הרכיבים ששילבת במערכת:
+🗂 Project Structure (Code Files)
+File	Description
+01_main.ino	System initialization and main loop
+03_entry.ino	Vehicle detection, servo gate control, entry counter
+04_gas.ino	MQ-2 smoke/gas sensor reading and alert handling
+06_parking.ino	Parking-slot calculations and state management
+07_http_server.ino	HTTP server providing real-time dashboard
+05_utils.ino	Utility functions
+smart_parking.ino	Integration/manager file
+🧰 Hardware Used
 
-🧠 בקר
+Below are all the components integrated into the system:
+
+🧠 Controller
 
 ESP32
 
-🚗 זיהוי רכב
+🚗 Vehicle Detection
 
-חיישן מרחק אולטרה־סוני HC-SR04
+HC-SR04 Ultrasonic Distance Sensor
 
-🔥 בטיחות
+🔥 Safety
 
-חיישן עשן / גז MQ-2
+MQ-2 Smoke / Gas Sensor
 
-🎥 צילום וניטור
+🎥 Video Monitoring
 
-מצלמה ESP32-CAM
+ESP32-CAM Camera Module
 
-🎵 התראות קוליות
+🎵 Audio Alerts
 
 Serial MP3 Player
-(משמיע הודעות – לדוגמה: “החניון מלא”, “סכנת עשן”, “ברוך הבא”)
+Plays audio messages such as “Parking full”, “Smoke detected”, “Welcome”, etc.
 
-🔧 בקרת מחסום
+🔧 Barrier Control
 
-מנוע סרוו
+Servo Motor
 
-💡 חיווי ונראות
+💡 Indicators
 
-נורת LED אדומה (חניה מלאה / סכנה)
+Red LED (parking full / danger)
 
-נורת LED ירוקה (כניסה מותרת / חניה פנויה)
+Green LED (entry allowed / parking available)
 
-פס לד (עיצוב, התראות או סימון)
+LED Strip (visual alerts / design)
 
-🔌 איך המערכת עובדת
+🔌 How the System Works
 
-חיישן ה-HC-SR04 מזהה רכב מתקרב.
+The HC-SR04 detects an approaching vehicle.
 
-אם יש מקום פנוי → הסרוו פותח את המחסום.
+If parking is available → the servo opens the gate.
 
-המערכת מעדכנת את מונה החניות.
+The system updates the parking-slot counter.
 
-חיישן ה-MQ-2 בודק עשן/גז ומפעיל התראה אם צריך.
+MQ-2 monitors smoke/gas levels and triggers alerts if needed.
 
-המצלמה ESP32-CAM מזרים וידאו חי.
+ESP32-CAM provides live video streaming.
 
-נורות LED ופס הלד מציגים מצב (פנוי/מלא/סכנה).
+LEDs and LED strip display status (available/full/danger).
 
-נגן ה-MP3 מפעיל הודעות קוליות לפי מצב.
+The MP3 Player plays voice notifications based on events.
 
-שרת ה-HTTP מציג דשבורד חי לכל משתמש ברשת.
+The HTTP server displays a live dashboard accessible to all devices on the network.
 
-🖥️ לוח בקרה (Dashboard)
+🖥️ Dashboard Features
 
-שרת ה־HTTP מציג:
+The HTTP dashboard provides:
 
-מצב חניות
+Parking availability
 
-התראות עשן
+Gas/smoke alerts
 
-וידאו ממצלמת ESP32-CAM
+Live ESP32-CAM video feed
 
-לוג של כניסות רכבים
+Vehicle entry logs
 
-מצב מחסום
+Barrier status
 
-דיווחים בזמן אמת
+Real-time system updates
 
-▶️ הוראות הפעלה
+▶️ How to Run the Project
 
-להכניס את כל קבצי ה־.ino לאותה תיקייה.
+Place all .ino files in the same folder.
 
-לפתוח ב־Arduino IDE.
+Open the project in Arduino IDE.
 
-לבחור לוח: ESP32 Dev Module.
+Select board: ESP32 Dev Module.
 
-לעדכן פרטי WiFi בקובץ שרת ה־HTTP.
+Update WiFi credentials in the HTTP server file.
 
-להעלות את הקוד לבקר.
+Upload the code to the ESP32.
 
-להתחבר לכתובת ה־IP שמופיעה בסיריאל.
+Open Serial Monitor to get the IP address.
 
-לפתוח בדפדפן → לוח הבקרה יופיע.
+Open the IP in your browser → dashboard appears.
